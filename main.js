@@ -77,3 +77,11 @@ todoSave.addEventListener('click', (evnt) => {
 	}
 
 })
+
+window.addEventListener('load', () => {
+	const todosFromStorage = JSON.parse(localStorage.todos)
+	todosFromStorage.forEach(element => {
+		renderTodoList(element.title, element.id)
+		renderTodoModal(element.title, element.description, element.id)
+	});
+});
