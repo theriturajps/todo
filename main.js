@@ -1,5 +1,6 @@
 const todoSave = document.querySelector('#todoSave')
 const todoList = document.querySelector('#todoList')
+const todoModal = document.querySelector('#todoModal')
 
 const renderTodoList = (todoTitle, todoUniqueID) => {
 	const todoTemplate = `<a href="#${todoUniqueID}" class="block">
@@ -12,8 +13,8 @@ const renderTodoList = (todoTitle, todoUniqueID) => {
 	todoList.insertAdjacentHTML('beforeend', todoTemplate)
 }
 
-const renderTodoModal = (todoTitle, todoDescription, todoModalUniqueID) => {
-	const modalTemplate = `<div id="${todoModalUniqueID}" class="modal items-center justify-center">
+const renderTodoModal = (todoTitle, todoDescription, todoUniqueID) => {
+	const modalTemplate = `<div id="${todoUniqueID}" class="modal items-center justify-center">
 			<div class="bg-white rounded shadow-lg p-4 max-w-sm w-full mx-2">
 				<h2 class="text-lg font-bold mb-2">${todoTitle}</h2>
 				<p class="text-sm text-gray-600 mb-3">${todoDescription}</p>
@@ -27,7 +28,7 @@ const renderTodoModal = (todoTitle, todoDescription, todoModalUniqueID) => {
 			</div>
 		</div>`
 	
-	todoList.insertAdjacentHTML('afterend', modalTemplate)
+	todoModal.insertAdjacentHTML('beforeend', modalTemplate)
 }
 
 const saveTodoToLocalStorage = (title, description) => {
@@ -47,11 +48,11 @@ todoSave.addEventListener('click', (evnt) => {
 	const regexCode = /[A-Za-z0-9]+/
 	const todoInputTitle = document.querySelector('input').value
 	const todoDescription = document.querySelector('textarea').value
-	const todoInputModalUniqueID = generateID()
+	const todoUniqueID = generateID()
 	
 	if (regexCode.test(todoInputTitle)) {
-		renderTodoList(todoInputTitle, todoInputModalUniqueID)
-		renderTodoModal(todoInputTitle, todoDescription, todoInputModalUniqueID)
+		renderTodoList(todoInputTitle, todoUniqueID)
+		renderTodoModal(todoInputTitle, todoDescription, todoUniqueID)
 	} else {
 		console.warn('Enter the Title!');
 	}
