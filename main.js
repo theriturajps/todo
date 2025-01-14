@@ -21,7 +21,7 @@ const renderTodoModal = (todoTitle, todoDescription, todoUniqueID) => {
             <div class="flex justify-between items-center">
                 <p class="text-xs text-gray-500">${new Date().toLocaleString().split(' ')[0].replace(',', '')}</p>
                 <div>
-                    <button onclick="deleteTodos('${todoUniqueID}')" type="button" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition-colors">Delete</button>
+                    <button onclick="deleteTodos('${todoUniqueID}'); deleteTodoFromLocalStorage('${todoUniqueID}');" type="button" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition-colors">Delete</button>
                     <a href="#" class="bg-gray-500 text-white px-3 py-1 text-sm rounded hover:bg-gray-600 transition-colors ml-2">Close</a>
                 </div>
             </div>
@@ -29,17 +29,6 @@ const renderTodoModal = (todoTitle, todoDescription, todoUniqueID) => {
     </div>`;
 	
 	todoModal.insertAdjacentHTML('beforeend', modalTemplate)
-}
-
-const saveTodoToLocalStorages = (todosId, title, description) => {
-	let todosData = JSON.parse(localStorage.getItem("todos")) || [];
-	todosData.push({
-		id: todosId,
-		title: title,
-		description: description,
-		date: new Date().toLocaleString().split(' ')[0].replace(',', '')
-	});
-	localStorage.setItem("todos", JSON.stringify(todosData));
 }
 
 const generateID = () => {
@@ -50,12 +39,35 @@ const generateID = () => {
 	});
 }
 
+const saveTodoToLocalStorage = (todosId, title, description) => {
+	let todosData = JSON.parse(localStorage.getItem("todos")) || [];
+	todosData.push({
+		id: todosId,
+		title: title,
+		description: description,
+		date: new Date().toLocaleString().split(' ')[0].replace(',', '')
+	});
+
+	localStorage.setItem("todos", JSON.stringify(todosData));
+}
+
 const deleteTodos = (todoUniqueID) => {
 	const deleteTodoModal = document.getElementById(todoUniqueID);
 	const deleteTodoList = document.querySelectorAll(`[href="#${todoUniqueID}"]`);
-
 	if (deleteTodoModal) deleteTodoModal.remove();
 	deleteTodoList.forEach(item => item.remove());
+}
+
+const deleteTodoFromLocalStorage = (todosId) => {
+	let todosData = JSON.parse(localStorage.getItem("todos")) || [];
+	const todoIndex = todosData.findIndex(todo => todo.id === todosId);
+	if (todoIndex !== -1) {
+		todosData.splice(todoIndex, 1);
+		localStorage.setItem("todos", JSON.stringify(todosData));
+		console.log('Todo removed from localStorage');
+	} else {
+		console.log('Todo not found');
+	}
 }
 
 todoSave.addEventListener('click', (evnt) => {
