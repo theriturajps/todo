@@ -47,12 +47,9 @@ const generateID = () => {
 const deleteTodos = (todoUniqueID) => {
 	const deleteTodoModal = document.getElementById(todoUniqueID);
 	const deleteTodoList = document.querySelectorAll(`[href="#${todoUniqueID}"]`);
-	if (deleteTodoModal) {
-		deleteTodoModal.parentNode.removeChild(deleteTodoModal);
-	}
-	if (deleteTodoList.length > 0) {
-		deleteTodoList.forEach(item => item.parentNode.removeChild(item));
-	}
+
+	if (deleteTodoModal) deleteTodoModal.remove();
+	deleteTodoList.forEach(item => item.remove());
 }
 
 
