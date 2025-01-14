@@ -64,9 +64,8 @@ const deleteTodoFromLocalStorage = (todosId) => {
 	if (todoIndex !== -1) {
 		todosData.splice(todoIndex, 1);
 		localStorage.setItem("todos", JSON.stringify(todosData));
-		console.log('Todo removed from localStorage');
 	} else {
-		console.log('Todo not found');
+		console.warn('Todo not found');
 	}
 }
 
