@@ -45,13 +45,16 @@ const generateID = () => {
 }
 
 const deleteTodos = (todoUniqueID) => {
-	const todoElement = document.getElementById(todoUniqueID);
-	
-	if (todoElement) {
-		todoElement.parentNode.removeChild(todoElement);
-		console.log(`Todo with ID ${todoUniqueID} deleted.`);
+	const deleteTodoModal = document.getElementById(todoUniqueID);
+	const deleteTodoList = document.querySelectorAll(`[href="#${todoUniqueID}"]`);
+	if (deleteTodoModal) {
+		deleteTodoModal.parentNode.removeChild(deleteTodoModal);
 	}
-};
+	if (deleteTodoList.length > 0) {
+		deleteTodoList.forEach(item => item.parentNode.removeChild(item));
+	}
+}
+
 
 todoSave.addEventListener('click', (evnt) => {
 	evnt.preventDefault();
