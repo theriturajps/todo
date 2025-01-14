@@ -2,7 +2,6 @@ const todoSave = document.querySelector('#todoSave')
 const todoList = document.querySelector('#todoList')
 const todoModal = document.querySelector('#todoModal')
 
-
 const renderTodoList = (todoTitle, todoUniqueID) => {
 	const todoTemplate = `<a href="#${todoUniqueID}" class="block">
 				<div class="bg-white rounded shadow p-2 hover:shadow-md transition-shadow cursor-pointer">
@@ -32,7 +31,17 @@ const renderTodoModal = (todoTitle, todoDescription, todoUniqueID) => {
 	todoModal.insertAdjacentHTML('beforeend', modalTemplate)
 }
 
-const saveTodoToLocalStorage = (title, description) => {
+const saveTodoToLocalStorages = (todosId, title, description) => {
+
+	let todosData = JSON.parse(localStorage.getItem("todos")) || [];
+
+	todosData.push({
+		id: todosId,
+		title: title,
+		description: description,
+		date: new Date().toLocaleString().split(' ')[0].replace(',', '')
+	});
+
 	localStorage.setItem("todos", JSON.stringify(todosData));
 }
 
@@ -52,7 +61,6 @@ const deleteTodos = (todoUniqueID) => {
 	deleteTodoList.forEach(item => item.remove());
 }
 
-
 todoSave.addEventListener('click', (evnt) => {
 	evnt.preventDefault();
 	const regexCode = /[A-Za-z0-9]+/
@@ -63,6 +71,7 @@ todoSave.addEventListener('click', (evnt) => {
 	if (regexCode.test(todoInputTitle)) {
 		renderTodoList(todoInputTitle, todoUniqueID)
 		renderTodoModal(todoInputTitle, todoDescription, todoUniqueID)
+		saveTodoToLocalStorage(todoUniqueID, todoInputTitle, todoDescription)
 	} else {
 		console.warn('Enter the Title!');
 	}
