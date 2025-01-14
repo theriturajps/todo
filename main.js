@@ -32,16 +32,13 @@ const renderTodoModal = (todoTitle, todoDescription, todoUniqueID) => {
 }
 
 const saveTodoToLocalStorages = (todosId, title, description) => {
-
 	let todosData = JSON.parse(localStorage.getItem("todos")) || [];
-
 	todosData.push({
 		id: todosId,
 		title: title,
 		description: description,
 		date: new Date().toLocaleString().split(' ')[0].replace(',', '')
 	});
-
 	localStorage.setItem("todos", JSON.stringify(todosData));
 }
 
