@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Todo App</title>
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="./styles.css">
+</head>
+
+<body class="bg-gray-50 min-h-screen p-2">
+	<div class="max-w-3xl mx-auto">
+
+		<header class="mb-4">
+			<h1 class="text-xl font-bold text-gray-800 text-center">My Todos</h1>
+		</header>
+
+		<div class="bg-white rounded shadow p-2 mb-4">
+			<form class="space-y-2">
+				<div>
+					<input type="text" placeholder="Todo Title" class="w-full p-1.5 text-sm border rounded focus:outline-none focus:ring-1 focus:ring-blue-400"></input>
+				</div>
+				<div>
+					<textarea placeholder="Todo Description" class="w-full p-1.5 text-sm border rounded h-16 resize-none focus:outline-none focus:ring-1 focus:ring-blue-400"></textarea>
+				</div>
+				<button id="todoSave" type="submit" class="w-full bg-blue-500 text-white text-sm py-1.5 rounded hover:bg-blue-600 transition-colors">Save</button>
+			</form>
+		</div>
+
+		<div id="todoList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2"></div>
+
+	</div>
+	<script src="./main.js"></script>
+</body>
+
+</html>
